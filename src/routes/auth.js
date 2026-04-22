@@ -4,6 +4,13 @@ import { issueAccessToken, issueRefreshToken } from '../middleware/auth.js';
 
 const router = Router();
 
+router.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 // POST /auth/register - Register a new user
 router.post('/register', async (req, res, next) => {
   try {
