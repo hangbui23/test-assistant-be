@@ -12,10 +12,6 @@ export default function auth(req, res, next) {
     return res.status(401).json({ message: "Unauthorized" });
   }
 
-  if (req.method === 'OPTIONS') {
-  return next();
-}
-
   const token = authHeader.split(" ")[1];
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
@@ -31,6 +27,9 @@ export default function auth(req, res, next) {
 }
 
 export function requireAuth(req, res, next) {
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
   const header = req.headers.authorization || '';
   const token = header.startsWith('Bearer ') ? header.slice(7) : null;
   // Debug log: print received token
