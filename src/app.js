@@ -11,16 +11,6 @@ import { logger } from './utils/logger.js';
 
 const app = express();
 
-app.use((req, res, next) => {
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Origin', process.env.CORS_ORIGIN);
-    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    return res.status(200).end();
-  }
-  next();
-});
-
 // CORS Configuration
 app.use(cors({ 
   origin: process.env.CORS_ORIGIN || 'http://localhost:3000', 
